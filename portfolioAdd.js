@@ -40,4 +40,4 @@ function addPortfolio() {
     const links = Array.from(document.querySelectorAll(".portfolio-link"));
     links.forEach((link) => link.addEventListener("click", handleLink));
 }
-window.addEventListener('load', addPortfolio);
+window.addEventListener('DOMContentLoaded', addPortfolio);

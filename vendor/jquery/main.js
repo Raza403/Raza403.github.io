@@ -5325,4 +5325,4 @@ function addPortfolio() {
         return link.addEventListener("click", handleLink);
     });
 }
-window.addEventListener('load', addPortfolio);
+window.addEventListener('DOMContentLoaded', addPortfolio);
