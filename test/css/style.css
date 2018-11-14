@@ -1,0 +1,100 @@
+/* Over righting default so that maximum space could be used */
+.container {
+  width: 90%;
+}
+
+/* On smaller screens need to use more part of the screen so adjusted
+everthing such that */
+@media only screen and (max-width: 991px) {
+  .container {
+    width: 95%;
+  }
+  .card .card-content{
+    padding: .5em;
+  }
+  .my-2{
+    padding: 0 !important;
+  }
+}
+
+/* Class for margin top and bottom */
+.my {
+  margin-top: .5em;
+  margin-bottom: .5em;
+}
+
+/* Custom padding for card used for shopping cart */
+.card .card-content{
+  padding: 1em;
+}
+
+/* Changed size of flow-text class, it was getting way to big */
+@media only screen and (min-width: 1200px) {
+  .flow-text {
+      font-size: 1.3rem;
+  }
+}
+
+@media only screen and (min-width: 1600px) {
+  .flow-text {
+      font-size: 1.68rem;
+  }
+}
+
+/* Color of all inputs and labels is white */
+input, label{
+  color: white;
+}
+
+.caret{
+  fill: #fff !important;
+}
+
+.checkout{
+  margin-bottom: 1em;
+}
+
+.mb-1{
+  margin-bottom: 1em;
+}
+
+.my-2{
+  margin-right: .3em;
+  margin-left: .3em;
+}
+
+.mt-3{
+margin-top: 3em;
+}
+
+.cc-opacity{
+opacity: 0.3;
+}
+
+@media only screen and (max-width: 450px) {
+  .total{
+    margin-top: 15px;
+  }  
+}
+
+.bottom{
+  padding-bottom: 7em;
+}
+
+/* Cursor default as required in issue */
+#promo:hover, #promoRemove:hover{
+  cursor: default;
+}
+
+.cc-logo{
+  min-height:25px;
+  max-height: 25px;
+  padding: 1px;
+  margin: 0 auto;
+}
+.cc-logo-wrapper{
+  border-radius:3px;
+}
+.mb-half{
+  margin-bottom: 0.5rem;
+}

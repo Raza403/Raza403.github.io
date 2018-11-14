@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Global Site Tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-66686611-1');
+</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!-- Customized CSS -->
+  <link rel="stylesheet" href="./css/style.css">
+  <title>One Page Checkout</title>
+</head>
+
+<body onload="calculateTotal()" class="grey darken-3">
+  <div class="container">
+    <div class="row">
+      <div class="col s12 l4">
+        <div class="card grey darken-2">
+          <div class="card-content white-text">
+            <span class="card-title center"><img class="responsive-img" src="https://lms.acls.net/wp-content/uploads/theme/logo_2_1.png"
+                alt="ACLS Training Center logo"></span>
+            <div class="col s12">
+              <span class="center phone-number">1-877-560-2940</span>
+              <span class="right"><a class="email" href="mailto:support@ACLS.net?subject=Certification%20Questions&amp;body=Hi%2C%20I'd%20like%20to%20sign%20up%20for%20ACLS%2C%20PALS%2C%20and%20BLS.%20What%20other%20certifications%20do%20you%20have%3F">support@ACLS.net</a></span>
+            </div>
+            <div class="col grey mb-1 s-12">
+              <h6 class="center">We guarantee a 100% refund if you are not satisfied with your purchase within 90-days of purchase.</h6>
+            </div>
+            <div class="courses">
+              <div class="col mb-1 s12">
+                <span class="flow-text aclsRecert">ACLS Recertification Course</span>
+                <span class="right price aclsRecert-price flow-text">$175.00</span>
+              </div>
+          </div>
+          </div>
+          <div class="card-content acls-course-add white-text">
+            <p>
+              <span >Upgrade certification if you have not certified before</span>
+              <a onclick="addACLS()"><span class="right new badge" data-badge-caption="+$100.00"></span></a>
+            </p>
+          </div>
+          <div class="card-content bls-recert-add white-text">
+            <p>
+              <span>Add a BLS Recertification</span>
+              <a onclick="addBlsRecert()"><span class="right new badge" data-badge-caption="+$65.00"></span></a>
+            </p>
+          </div>
+          <div class="card-content acls-crash-cart white-text">
+            <p>
+              <span>Add acls crash cart cards</span>
+              <a onclick="aclsCrashCart()"><span class="right new badge" data-badge-caption="+$40.00"></span></a>
+            </p>
+          </div>
+          <div class="card-content white-text">
+            <strong>Shipping (for provider card)</strong>
+            <span class="right">Free</span>
+          </div>
+          <div class="card-content total teal white-text">
+            <span class="flow-text">TOTAL</span>
+            <span class="flow-text total-price right"></span>
+          </div>
+          <div class="card-content">
+            <span id="promo" class="grey-text">Add promo code</span>
+            <span id="promoRemove" class="white-text" style="display:none;">Remove promo code</span>
+            <div class="input-field" id="promoInput" style="display: none;">
+              <input type="text" onblur="analytics(this)" id="promoCode" name="promoCode">
+              <label for="promoCode">Optional promo code</label>
+              <button class="btn teal">Apply</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col my bottom form-div s12 l8 grey darken-3">
+        <div>
+          <div class="row">
+            <div class="col s5 l6">
+                <p class="flow-text white-text">Student Information</p>
+            </div>
+            <div class="col white-text teal s7 l6" style="margin-top:1.7em;border-right: 10px solid #444444;">
+                <p>This purchase &amp; your personal information is secure with 256-bit encryption.</p>
+            </div>
+          </div>
+          <form action="submit" id="form">
+            <div class="row">
+              <div class="input-field col s12 m8">
+                <input id="email" type="email" oninput='emailAnalytics()' onblur="analytics(this)" list="email-options" required class="validate">
+                <label class="white-text" for="email">Your Email*</label>
+                <div id="hint" class="orange-text"></div>
+              </div>
+              <div class="input-field col s12 m4">
+                <input id="password" onblur="analytics(this)" type="password">
+                <label class="white-text" for="password">Choose Password</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12 m5">
+                <input id="firstName" onblur="analytics(this)" type="text">
+                <label class="white-text" for="firstName">First Name</label>
+              </div>
+              <div class="input-field col s12 m5">
+                <input id="lastName" onblur="analytics(this)" type="text">
+                <label class="white-text" for="lastName">Last Name</label>
+              </div>
+              <div class="input-field col m2 s12">
+                <input id="md-rn" onblur="analytics(this)" type="text">
+                <label class="white-text" for="md-rn">MD/RN/...</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col input-field s12">
+                <label class="white-text" for="company">Company</label>
+                <input type="text" onblur="analytics(this)" id="company" class="autocomplete">
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12 m6">
+                <select id="country" onchange="analytics(this)">
+                  <option value="Afghanistan">Afghanistan</option>
+                  <option value="Albania">Albania</option>
+                  <option value="Algeria">Algeria</option>
+                  <option value="American Samoa">American Samoa</option>
+                  <option value="Angola">Angola</option>
+                  <option value="Anguilla">Anguilla</option>
+                  <option value="Antartica">Antartica</option>
+                  <option value="Antigua and Barbuda">Antigua and Barbuda</option>
+                  <option value="Argentina">Argentina</option>
+                  <option value="Armenia">Armenia</option>
+                  <option value="United States" selected="selected">United States</option>
+                </select>
+                <label class="white-text">Choose Your Country</label>
+              </div>
+              <div class="input-field col s12 m6">
+                <input id="streetAddress" onblur="analytics(this)" type="text">
+                <label class="white-text" for="streetAddress">Street Address</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12 m4">
+                <input id="box" onblur="analytics(this)" type="text">
+                <label class="white-text" for="box">Appartment/box</label>
+              </div>
+              <div class="input-field col s12 m4">
+                <input id="state" onblur="analytics(this)" type="text">
+                <label class="white-text" for="box">State/Province</label>
+              </div>
+              <div class="input-field col s12 m4">
+                <input id="city" onblur="analytics(this)" type="text">
+                <label class="white-text" for="city">City</label>
+              </div>
+              <div class="input-field col s12 m4">
+                <input id="postalCode" onblur="analytics(this)" type="text" onkeyup="digits(this)" required class="validate">
+                <label class="white-text" for="postalCode">Postal Code</label>
+                <div id="postalCode-error" style="display: none;" class="orange-text">Digits only please!</div>
+              </div>
+              <div class="input-field col s12 m4">
+                <input id="phoneNumber" onblur="analytics(this)" onkeyup="digits(this)" type="tel">
+                <label class="white-text" for="phoneNumber">Phone Number</label>
+                <div id="phoneNumber-error" style="display: none;" class="orange-text">Digits only please!</div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <label>
+                  <input type="checkbox" id="checkbox" onchange="analytics(this)" checked class="billing-address" />
+                  <span class="white-text">Billing address same as shipping</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="billing-info">
+            <div class="row">
+              <div class="input-field col s-12 m-2">
+                <span class="white-text flow-text">Bill to</span>
+              </div>
+              <div class="input-field col s12 m5">
+                <input id="billing-name" onblur="analytics(this)" type="text">
+                <label class="white-text" for="billing-name">Name</label>
+              </div>
+              <div class="input-field col s12 m5">
+                <input id="billing-lastName" onblur="analytics(this)" type="text">
+                <label class="white-text" for="billing-lastName">Last Name</label>
+              </div>
+              <div class="col input-field s12">
+                <label class="white-text" for="billing-company">Company</label>
+                <input type="text" id="billing-company" onblur="analytics(this)" class="autocomplete">
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12 m6">
+                <select id="Billing-country" onchange="analytics(this)">
+                  <option value="Afghanistan">Afghanistan</option>
+                  <option value="Albania">Albania</option>
+                  <option value="Algeria">Algeria</option>
+                  <option value="American Samoa">American Samoa</option>
+                  <option value="Angola">Angola</option>
+                  <option value="Anguilla">Anguilla</option>
+                  <option value="Antartica">Antartica</option>
+                  <option value="Antigua and Barbuda">Antigua and Barbuda</option>
+                  <option value="Argentina">Argentina</option>
+                  <option value="Armenia">Armenia</option>
+                  <option value="United States" selected="selected">United States</option>
+                </select>
+                <label class="white-text">Choose Your Country</label>
+              </div>
+              <div class="input-field col s12 m6">
+                <input id="billing-streetAddress" onblur="analytics(this)" type="text">
+                <label class="white-text" for="billing-streetAddress">Street Address</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12 m4">
+                <input id="billing-box" onblur="analytics(this)" type="text">
+                <label class="white-text" for="billing-box">Appartment/box</label>
+              </div>
+              <div class="input-field col s12 m4">
+                <input id="billing-state" onblur="analytics(this)" type="text">
+                <label class="white-text" for="billing-box">State/Province</label>
+              </div>
+              <div class="input-field col s12 m4">
+                <input id="billing-city" onblur="analytics(this)" type="text">
+                <label class="white-text" for="billing-city">City</label>
+              </div>
+              <div class="input-field col s12 m4">
+                <input id="billing-postalCode" onblur="analytics(this)" type="text" onkeyup="digits(this)" class="validate" required>
+                <label class="white-text" for="billing-postalCode">Postal Code</label>
+                <div id="billing-postalCode-error" style="display: none;" class="orange-text">Digits only please!</div>
+              </div>
+              <div class="input-field col s12 m4">
+                <input id="billing-phoneNumber" onblur="analytics(this)" onkeyup="digits(this)" type="tel">
+                <label class="white-text" for="billing-phoneNumber">Phone Number</label>
+                <div id="billing-phoneNumber-error" style="display: none;" class="orange-text">Digits only please!</div>
+              </div>
+            </div>
+          </div>
+            <div class="credit-card mt-3">
+              <h5 class="white-text center">Credit card</h5>
+              <div class="input-field col s12 m6">
+                <!-- <input id="cc-number" onblur="analytics(this)" type="text" class="validate" required>
+                <label class="white-text" for="cc-number">xxxx-xxxx-xxxx-xxxx</label>
+                <div id="cc-number-error" style="display: none;" class="orange-text">Digits only please!</div>
+                <div id="cc-invalid" class="orange-text"></div> -->
+                <input id="cc-number" class="input-0 validate" onblur="analytics(this)" type="text" required/>
+                <label class="white-text" for="cc-number">Credit Card Number</label>
+                <div id="cc-invalid" class="orange-text"></div>
+              </div>
+              <div class="input-field col s12 m2">
+                <select class="validate select" id="cc-month" onchange="analytics(this)" required>
+                  <option value="" disabled selected>Month*</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                </select>
+              </div>
+              <div class="input-field col s12 m2">
+                <select class="validate select" id="cc-year" onchange="analytics(this)" required>
+                  <option value="" disabled selected>Year*</option>
+                  <option value="1">1980</option>
+                  <option value="2">1981</option>
+                  <option value="3">1982</option>
+                  <option value="4">1983</option>
+                  <option value="5">1984</option>
+                  <option value="6">1985</option>
+                  <option value="7">1986</option>
+                  <option value="8">1987</option>
+                  <option value="9">1988</option>
+                  <option value="10">1989</option>
+                  <option value="11">1990</option>
+                  <option value="12">1991</option>
+                </select>
+              </div>
+              <div class="input-field col s12 m2 cc-image">
+                <input id="cvv" onblur="analytics(this)" type="text" onkeyup="digits(this)" class="validate" required>
+                <label class="white-text" for="cvv">CVV*</label>
+                <div id="cvv-error" style="display: none;" class="orange-text">Digits only please!</div>
+              </div>
+            </div>
+            <div class="col s12 mb-1">
+              <div id="cc-visa" class="col mb-half s2 m1 valign-wrapper white my-2 cc-logo-wrapper">
+                  <img src="./images/visa.png" class="responsive-img" style="height:25px;padding: 0 .1rem;margin: 0 auto;" alt="Visa Logo image">
+              </div>
+              <div id="cc-master" class="col s2 mb-half m1 valign-wrapper white my-2 cc-logo-wrapper">
+                  <img src="./images/mastercard.png" class="responsive-img cc-logo" alt="Master card logo image">
+              </div>
+              <div id="cc-discover" class="col s2 mb-half m1 valign-wrapper  white my-2 cc-logo-wrapper">
+                  <img src="./images/discover.png" class="responsive-img cc-logo" alt="Discover card logo image">
+              </div>
+              <div id="cc-amex" class="col s2 m1 mb-half valign-wrapper white my-2 cc-logo-wrapper">
+                  <img src="./images/amex.jpg" class="responsive-img cc-logo" alt="AMEX card logo image">
+              </div>
+              <div id="cc-diners" class="col s2 m1 mb-half valign-wrapper white my-2 cc-logo-wrapper">
+                <img src="./images/diners.jpg" class="responsive-img cc-logo" alt="Diners card logo image">
+              </div>
+              <div id="cc-jcb" class="col s2 m1 mb-half valign-wrapper white my-2 cc-logo-wrapper">
+                <img src="./images/jcb.jpg" class="responsive-img cc-logo" alt="JCB card logo image">
+              </div>
+            </div>
+          </form>
+          <div class="col s12 center">
+            <button class="waves-effect waves-light checkout btn center" onclick="startValidation()">Secure Checkout - $ 175</button>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col s6 right-align">
+                <img src="https://lms.acls.net/images/rapidssl.gif" style="height:50px;" class="responsive-img" alt="Rapid ssl logo">
+              </div>
+              <div class="col s6 left-align margin-bottom">
+                  <img src="https://lms.acls.net/images/authorizenet.gif" style="height:60px;" class="responsive-img" alt="Rapid ssl logo">
+                </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- jquery -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Email Verification -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mailcheck/1.1.2/mailcheck.min.js"></script>
+    <!-- cleave.js for credit card formating -->
+    <script src="Https://cdnjs.cloudflare.com/ajax/libs/cleave.js/1.4.4/cleave.min.js"></script>
+    <!-- Our main javascript code -->
+    <script src="./js/main.js"></script>
+</body>
+
+</html>
